@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
-import fr.sid.domain.User;
+import domain.User;
+
 
 /**
  * Classe effectuant le mapping entre le résultat d'une requête sur la base de données et l'objet java correspondant
@@ -19,7 +20,7 @@ public class UserMapper implements ParameterizedRowMapper<User>  {
 		User result = new User();
 		
 		//Copie des données
-		result.setIdUtilisateur(rs.getInt("idUtilisateur"));
+		result.setIdUser(rs.getInt("idUtilisateur"));
 		
 		result.setUsername(rs.getString("username"));
 		result.setPassword(rs.getString("password"));

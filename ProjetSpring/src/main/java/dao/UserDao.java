@@ -2,7 +2,8 @@ package dao;
 
 import java.util.List;
 
-import fr.sid.domain.User;
+import domain.User;
+
 
 /**
  * Interface décrivant les différentes méthodes proposé par le DAO des utilisateurs

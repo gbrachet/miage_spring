@@ -1,4 +1,4 @@
-package fr.sid.domain;
+package domain;
 
 /**
  * Classe modélisant un contact entre deux Users

@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import dao.UserDao;
 import dao.mapper.UserMapper;
-import fr.sid.domain.User;
+import domain.User;
 
 public class UserDaoJdbc implements UserDao{
 	
@@ -46,7 +46,7 @@ public class UserDaoJdbc implements UserDao{
 	@Override
 	public void addUser(User user) {
 		//Execution de la requête
-		jdbcTemplate.update(
+		this.jdbcTemplate.update(
 			ADD_USER, 
 			user.getUsername(), 
 			user.getPassword(), 
@@ -61,7 +61,7 @@ public class UserDaoJdbc implements UserDao{
 	@Override
 	public void updateUser(User user) {
 		//Execution de la requête
-		jdbcTemplate.update(
+		this.jdbcTemplate.update(
 			UPDATE_USER,
 			user.getUsername(), 
 			user.getPassword(), 
@@ -70,14 +70,14 @@ public class UserDaoJdbc implements UserDao{
 			user.getLastName(),
 			user.getSex(),
 			user.getBirthday(),
-			user.getIdUtilisateur()
+			user.getIdUser()
 		);
 	}
 	
 	@Override
 	public void deleteUser(int id) {
 		//Execution de la requête
-		jdbcTemplate.update(DELETE_USER, id);
+		this.jdbcTemplate.update(DELETE_USER, id);
 	}
 	
 	
@@ -91,20 +91,22 @@ public class UserDaoJdbc implements UserDao{
 
 	@Override
 	public User getUser(int id) {
-		return jdbcTemplate.queryForObject(GET_USER, userMapper, uuid);
+		return jdbcTemplate.queryForObject(GET_USER, userMapper, id);
 	}
 	
 	@Override
 	public User getUserByMail(String mail) {
 		return jdbcTemplate.queryForObject(GET_USER_MAIL, userMapper, mail);
 	}
-
+	
+	@Override
+	public User connection(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
-
-
-
-
+	
 
 	
 	/* Set */

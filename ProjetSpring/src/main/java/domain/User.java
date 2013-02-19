@@ -1,4 +1,4 @@
-package fr.sid.domain;
+package domain;
 
 import java.util.Date;
 
@@ -11,17 +11,14 @@ public class User {
 	
 	/* Attributs */
 	
-	private int idUtilisateur;
-	
+	private int idUser;
 	private String username;
 	private String password;
 	private String email;
-	
 	private String firstName;
 	private String lastName;
 	private String sex;				//'m', 'f'
 	private Date birthday;
-	
 	private Date lastConnection;
 	private Date registration;
 	
@@ -38,22 +35,21 @@ public class User {
 
 	@Override
 	public boolean equals(Object obj) {
-		return (obj instanceof User)? (this.idUtilisateur == ((User) obj).getIdUtilisateur()) : super.equals(obj);
+		return (obj instanceof User)? (this.idUser == ((User) obj).getIdUser()) : super.equals(obj);
 	}
 	
 	public String toString(){
-		return "id : "+this.idUtilisateur+", username : "+this.username+", email : "+this.email; 
+		return "id : "+this.idUser+", username : "+this.username+", email : "+this.email; 
 	}
-
-
+	
 	/* Get & Set */
 	
-	public int getIdUtilisateur() {
-		return idUtilisateur;
+	public int getIdUser() {
+		return idUser;
 	}
 
-	public void setIdUtilisateur(int idUtilisateur) {
-		this.idUtilisateur = idUtilisateur;
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getUsername() {

@@ -1,8 +1,9 @@
-package fr.sid.service;
+package service;
 
 import java.util.List;
 
-import fr.sid.domain.User;
+import domain.User;
+
 
 /**
  * Interface décrivant les différentes méthodes proposé par le service des utilisateurs

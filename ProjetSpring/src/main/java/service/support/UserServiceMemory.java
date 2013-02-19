@@ -1,10 +1,12 @@
-package fr.sid.service.support;
+package service.support;
 
 import java.util.List;
 import java.util.Map;
 
-import fr.sid.domain.User;
-import fr.sid.service.UserService;
+import service.UserService;
+
+import domain.User;
+
 
 /**
  * Class implémentant le services de gestion des utilisateurs en mémoire vive
@@ -73,7 +75,7 @@ public class UserServiceMemory implements UserService{
 	
 	/* Set */
 	
-	public void setUsers(List<User> users) {
+	public void setUsers(Map<Integer, User> users) {
 		this.users = users;
 	}
 

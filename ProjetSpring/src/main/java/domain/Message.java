@@ -1,4 +1,4 @@
-package fr.sid.domain;
+package domain;
 
 import java.util.Date;
 

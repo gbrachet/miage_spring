@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<bean id="userService" class="fr.sid.service.support.UserServiceDao">
+	
+	<bean class ="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+ 
+	
+	<bean id="userService" name="userService" class="service.support.UserServiceDao">
 		<property name="userDao" ref="userDao"></property>
 		<property name="users">
-			<map key-type="java.lang.Integer" value-type="fr.sid.domain.User"></map>
+			<map key-type="java.lang.Integer" value-type="domain.User"></map>
 		</property>
 	</bean>
 
@@ -17,7 +21,7 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+		
 	<!-- SOURCE DE CONNEXION -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>

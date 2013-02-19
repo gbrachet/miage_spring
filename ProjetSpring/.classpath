@@ -6,14 +6,14 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
-			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -25,14 +25,8 @@
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/gautier/Téléchargements/mysql-connector-java-5.0.5-bin.jar"/>
-	<classpathentry kind="lib" path="/home/gautier/Téléchargements/spring.jar"/>
-	<classpathentry kind="lib" path="/home/gautier/Téléchargements/commons-dbcp.jar"/>
-	<classpathentry kind="lib" path="/home/gautier/Téléchargements/commons-logging.jar"/>
-	<classpathentry kind="lib" path="/home/gautier/Téléchargements/commons-pool.jar"/>
-	<classpathentry kind="lib" path="/home/gautier/Téléchargements/junit-3.8.2.jar"/>
-	<classpathentry kind="lib" path="/home/gautier/Téléchargements/log4j-1.2.15.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

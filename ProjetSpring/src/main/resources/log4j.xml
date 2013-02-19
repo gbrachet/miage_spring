@@ -8,6 +8,10 @@
 				value="%5p [%t] %c{2}.[%x] %d{MMM/dd HH:mm:ss} - %m%n" />
 		</layout>
 	</appender>
+	
+	 <logger name="controller">
+        <level value="debug"/>
+    </logger>
 
 	<root>
 		<level value="info" />

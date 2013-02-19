@@ -1,11 +1,12 @@
-package fr.sid.service.support;
+package service.support;
 
 import java.util.List;
 import java.util.Map;
 
+import service.UserService;
+
 import dao.UserDao;
-import fr.sid.domain.User;
-import fr.sid.service.UserService;
+import domain.User;
 
 /**
  * Class implémentant le services de gestion des utilisateurs pour la base de données
@@ -20,22 +21,19 @@ public class UserServiceDao implements UserService {
 	private UserDao userDao;
 	
 	/** Liste contenant les utilisateurs en mémoire (connecté) */
+	@SuppressWarnings("unused")
 	private Map<Integer, User> users;
 
 	/* Méthodes */
 	
 	@Override
 	public void addUser(User user) {
-		//TODO Vérification de l'utilisateur
-
 		//Appel du DAO
 		userDao.addUser(user);
 	}
 	
 	@Override
 	public void updateUser(User user) {
-		//TODO Vérification de l'utilisateur
-		
 		//Appel du DAO
 		userDao.updateUser(user);
 		
@@ -50,13 +48,13 @@ public class UserServiceDao implements UserService {
 	@Override
 	public void deleteUser(User user) {
 		//TODO Vérification de l'utilisateur
-		if((user == null) || (user.getIdUtilisateur() < 1)){
+		if((user == null) || (user.getIdUser() < 1)){
 			//Levée d'une exception
 //			throw new ControlException();
 		}
 		
 		//Appel de la méthode sur l'identifiant
-		this.deleteUser(user.getIdUtilisateur());
+		this.deleteUser(user.getIdUser());
 	}
 	
 	/* TODO */
