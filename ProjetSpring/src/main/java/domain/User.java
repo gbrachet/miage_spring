@@ -1,19 +1,35 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 /**
  * Classe modélisant un utilisateur
  * @author BALLAND Cyriel (cyr.balland@gmail.com) - BRACHET Gautier (g.brachet@gmail.com)
  * @version 1.0 (01/02/2013)
  */
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = 1473400756284729819L;
+	
+	
 	
 	/* Attributs */
 	
 	private int idUser;
 	private String username;
+	
+	@NotNull(message = "Password invalid (6 to 16 caracters)")
+	@Size(min = 6, max = 16, message = "Password invalid (6 to 16 caracters)")
 	private String password;
+	
+	@NotNull(message = "Address Email invalid (72 caracters max)") 
+	@Size(max = 72, message = "Address Email invalid (72 caracters max)")
+	@Email(message = "Address Email invalid")
 	private String email;
 	private String firstName;
 	private String lastName;
@@ -28,7 +44,6 @@ public class User {
 	 * Constructeur vide
 	 */
 	public User() {
-		
 	}
 	
 	/* Méthodes */

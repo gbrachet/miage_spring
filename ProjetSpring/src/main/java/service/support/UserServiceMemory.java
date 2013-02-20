@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import service.UserService;
-
 import domain.User;
 
 
@@ -45,7 +44,7 @@ public class UserServiceMemory implements UserService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	@Override
 	public User getUser(String uuid) {
 //		for(User u : users){
 //			if(u.getUuid().equals(uuid)){
@@ -54,24 +53,50 @@ public class UserServiceMemory implements UserService{
 //		}
 		return null;
 	}
-	
+	@Override
 	public void addUser(User user) {
 //		if(!users.contains(user)){
 //			users.add(user);
 //		}
 	}
-
+	@Override
 	public void updateUser(User user) {
 
 		addUser(user);
 	}
 
-	public void deleteUser(String uuid) {
-		User u = getUser(uuid);
-		if(u != null){
-			users.remove(u);
-		}
+	
+	@Override
+	public boolean emailExists(String email) {
+		// TODO Auto-generated method stub
+		return false;
 	}
+	
+	@Override
+	public User connect(String email, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public User getUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	@Override
+	public boolean isConnected() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public void setUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	/* Set */
 	

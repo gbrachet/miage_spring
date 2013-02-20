@@ -20,6 +20,9 @@ public class UserServiceDao implements UserService {
 	/** DAO gérant les interactions avec la base de données pour les utilisateurs */
 	private UserDao userDao;
 	
+	/** Utilisateur connecté */
+	private User user;
+	
 	/** Liste contenant les utilisateurs en mémoire (connecté) */
 	@SuppressWarnings("unused")
 	private Map<Integer, User> users;
@@ -29,32 +32,43 @@ public class UserServiceDao implements UserService {
 	@Override
 	public void addUser(User user) {
 		//Appel du DAO
-		userDao.addUser(user);
+		this.userDao.addUser(user);
 	}
 	
 	@Override
 	public void updateUser(User user) {
 		//Appel du DAO
-		userDao.updateUser(user);
+		this.userDao.updateUser(user);
 		
 	}
 	
 	@Override
 	public void deleteUser(int id) {
 		//Appel du DAO
-		userDao.deleteUser(id);
+		this.userDao.deleteUser(id);
 	}
 	
 	@Override
 	public void deleteUser(User user) {
-		//TODO Vérification de l'utilisateur
-		if((user == null) || (user.getIdUser() < 1)){
-			//Levée d'une exception
-//			throw new ControlException();
-		}
-		
-		//Appel de la méthode sur l'identifiant
+		//Appel du DAO
 		this.deleteUser(user.getIdUser());
+	}
+	
+	@Override
+	public boolean emailExists(String email) {
+		//Appel du DAO
+		return this.userDao.emailExists(email);
+	}
+	
+	@Override
+	public User connect(String email, String password) {
+		//Appel du DAO
+		return this.userDao.connect(email, password);
+	}
+	
+	@Override
+	public boolean isConnected() {
+		return (this.user != null);
 	}
 	
 	/* TODO */
@@ -74,12 +88,17 @@ public class UserServiceDao implements UserService {
 	}
 
 	
-
-
-
-
-
 	/* Set */
+	
+	@Override
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	@Override
+	public User getUser(){
+		return this.user;
+	}
 	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
@@ -88,8 +107,4 @@ public class UserServiceDao implements UserService {
 	public void setUsers(Map<Integer, User> users) {
 		this.users = users;
 	}
-	
-	
-
-
 }

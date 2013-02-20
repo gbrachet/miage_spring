@@ -20,7 +20,7 @@ public class UserMapper implements ParameterizedRowMapper<User>  {
 		User result = new User();
 		
 		//Copie des données
-		result.setIdUser(rs.getInt("idUtilisateur"));
+		result.setIdUser(rs.getInt("idUser"));
 		
 		result.setUsername(rs.getString("username"));
 		result.setPassword(rs.getString("password"));

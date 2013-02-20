@@ -44,7 +44,26 @@ public interface UserDao {
 	 */
 	public User getUser(int id);
 	
+	/**
+	 * Méthode permettant de récupérer la liste des utilisateurs
+	 * @return (List<User>) la liste des utilisateurs
+	 */
 	public List<User> getUsers();
+	
+	/**
+	 * Méthode permettant de savoir si un email existe déjà ou non
+	 * @param (String) email : l'email
+	 * @return boolean true si il existe, false sinon
+	 */
+	public boolean emailExists(String email);
+	
+	/**
+	 * Méthode permettant de se connecter
+	 * @param (String) email
+	 * @param (String) password
+	 * @return (User) si l'utilisateur est trouvé, null sinon
+	 */
+	public User connect(String email, String password);
 
 	
 	public User getUserByMail(String mail);

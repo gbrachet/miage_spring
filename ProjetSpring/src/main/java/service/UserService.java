@@ -41,6 +41,41 @@ public interface UserService {
 	 * @return (List<User>) la liste des utilisateurs
 	 */
 	public List<User> getUsers();
+	
+	/**
+	 * Méthode permettant de savoir si un email existe déjà ou non
+	 * @param (String) email : l'email
+	 * @return boolean true si il existe, false sinon
+	 */
+	public boolean emailExists(String email);
+	
+	/**
+	 * Méthode permettant de se connecter
+	 * @param (String) email
+	 * @param (String) password
+	 * @return (User) si l'utilisateur est trouvé, null sinon
+	 */
+	public User connect(String email, String password);
+	
+	/**
+	 * Méthode permettant de savoir si l'utilisateur est connecté
+	 * @return boolean
+	 */
+	public boolean isConnected();
+	
+	/**
+	 * Méthode permettant de définir l'utilisateur
+	 * @param (User) utilisateur
+	 */
+	public void setUser(User user);
+	
+	
+	/**
+	 * Méthode permettant de récupérer l'utilisateur
+	 * @return (User) utilisateur
+	 */
+	public User getUser();
+	
 
 	public User getUser(String uuid);
 	
