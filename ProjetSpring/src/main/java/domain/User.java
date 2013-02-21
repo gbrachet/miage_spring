@@ -2,6 +2,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,6 +38,9 @@ public class User implements Serializable {
 	private Date birthday;
 	private Date lastConnection;
 	private Date registration;
+	
+	private boolean online;
+	private List<Message> messages;
 	
 	/* Constructeurs */
 
@@ -137,5 +141,21 @@ public class User implements Serializable {
 
 	public void setRegistration(Date registration) {
 		this.registration = registration;
+	}
+	
+	public boolean isOnline() {
+		return online;
+	}
+	
+	public void setOnline(boolean online) {
+		this.online = online;
+	}
+	
+	public List<Message> getMessages() {
+		return messages;
+	}
+	
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 }

@@ -1,6 +1,6 @@
 package service;
 
-import java.util.List;
+import java.util.Map;
 
 import domain.User;
 
@@ -10,44 +10,45 @@ import domain.User;
  * @author BALLAND Cyriel (cyr.balland@gmail.com) - BRACHET Gautier (g.brachet@gmail.com)
  * @version 1.0 (01/02/2013)
  */
-public interface UserService {
+public abstract class UserService {
+	
+	/* Attributs */
+	
+	/** Liste contenant les utilisateurs en mémoire (connecté) */
+	protected Map<User, Long> users;
+	
+	/* Méthodes */
 
 	/**
 	 * Méthode permettant d'ajouter un nouvel utilisateur
 	 * @param (User) user : l'utilisateur à ajouter
 	 */
-	public void addUser(User user);
+	public abstract void addUser(User user);
 	
 	/**
 	 * Méthode permettant de mettre un jour un utilisateur
 	 * @param (User) user : l'utilisateur à mettre à jour
 	 */
-	public void updateUser(User user);
+	public abstract void updateUser(User user);
 	
 	/**
 	 * Méthode permettant de supprimer un utilisateur
 	 * @param (int) id : l'identifiant de l'utilisateur
 	 */
-	public void deleteUser(int id);
+	public abstract void deleteUser(int id);
 	
 	/**
 	 * Méthode permettant de supprimer un utilisateur
 	 * @param (User) user : l'utilisateur à supprimer
 	 */
-	public void deleteUser(User user);
-
-	/**
-	 * Méthode permettant de récupérer la liste des utilisateurs
-	 * @return (List<User>) la liste des utilisateurs
-	 */
-	public List<User> getUsers();
+	public abstract void deleteUser(User user);
 	
 	/**
 	 * Méthode permettant de savoir si un email existe déjà ou non
 	 * @param (String) email : l'email
 	 * @return boolean true si il existe, false sinon
 	 */
-	public boolean emailExists(String email);
+	public abstract boolean emailExists(String email);
 	
 	/**
 	 * Méthode permettant de se connecter
@@ -55,31 +56,30 @@ public interface UserService {
 	 * @param (String) password
 	 * @return (User) si l'utilisateur est trouvé, null sinon
 	 */
-	public User connect(String email, String password);
-	
-	/**
-	 * Méthode permettant de savoir si l'utilisateur est connecté
-	 * @return boolean
-	 */
-	public boolean isConnected();
-	
-	/**
-	 * Méthode permettant de définir l'utilisateur
-	 * @param (User) utilisateur
-	 */
-	public void setUser(User user);
-	
-	
-	/**
-	 * Méthode permettant de récupérer l'utilisateur
-	 * @return (User) utilisateur
-	 */
-	public User getUser();
-	
+	public abstract User connect(String email, String password);
 
-	public User getUser(String uuid);
+	/**
+	 * Méthode permettant de récupérer un utilisateur
+	 * @param (long) identifiant
+	 * @return (User) l'utilisateur
+	 */
+	public abstract User getUser(long id);
 	
+	public abstract boolean isOnline(User user);
+	
+	/* Set */
 
+	/**
+	 * Méthode permettant de définir la liste des utilisateurs connectés
+	 * @param (Map<User, Long>) users
+	 */
+	public void setUsers(Map<User, Long> users) {
+		this.users = users;
+	}
+	
+	public Map<User, Long> getUsers() {
+		return users;
+	}
 	
 
 	

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,9 @@ public class WelcomeController {
 	 * @return JSP à afficher
 	 */
 	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String doWelcome(ModelMap model){
+	public String doWelcome(ModelMap model, HttpSession session){
 		//Si déjà connecté
-		if(this.userService.isConnected()) return HOME;
+		if((session.getAttribute("user") != null && ((User) session.getAttribute("user")).getEmail() != null)) return HOME;
 		
 		//Attributs
 		model.addAttribute("userForm", new UserForm());
@@ -61,9 +62,9 @@ public class WelcomeController {
 	 * Méthode gérant la connexion
 	 */
 	@RequestMapping(value="/signin", method = RequestMethod.POST)
-	public String doLogin(@ModelAttribute("user") final User user, final BindingResult bindingResult, final Model model){
+	public String doLogin(@ModelAttribute("user") final User user, final BindingResult bindingResult, final Model model, HttpSession session){
 		//Si déjà connecté
-		if(this.userService.isConnected()) return HOME;
+		if((session.getAttribute("user") != null && ((User) session.getAttribute("user")).getEmail() != null)) return HOME;
 		
 		//Initialisation 
 		String result = "welcome";
@@ -71,10 +72,10 @@ public class WelcomeController {
 		//Si il n'y a pas des erreurs
 		if(!bindingResult.hasErrors()) {
 			//Connexion
-			this.userService.setUser(this.userService.connect(user.getEmail(), user.getPassword()));
+			session.setAttribute("user", this.userService.connect(user.getEmail(), user.getPassword()));
 			
 			//Si connexion ok
-			if(this.userService.isConnected()){
+			if((session.getAttribute("user") != null && ((User) session.getAttribute("user")).getEmail() != null)){
 				//Redirection
 				result = HOME;
 			}
@@ -95,9 +96,9 @@ public class WelcomeController {
 	 * Méthode de la page de connexion GET
 	 */
 	@RequestMapping(value="/signin", method = RequestMethod.GET)
-	public String doLoginGet(ModelMap model){
+	public String doLoginGet(ModelMap model, HttpSession session){
 		//Si déjà connecté
-		if(this.userService.isConnected()) return HOME;
+		if((session.getAttribute("user") != null && ((User) session.getAttribute("user")).getEmail() != null)) return HOME;
 		
 		//Attributs
 		model.addAttribute("userForm", new UserForm());
@@ -112,9 +113,9 @@ public class WelcomeController {
 	 * Méthode de la page d'inscription GET
 	 */
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String doRegisterGet(ModelMap model){
+	public String doRegisterGet(ModelMap model, HttpSession session){
 		//Si déjà connecté
-		if(this.userService.isConnected()) return HOME;
+		if((session.getAttribute("user") != null && ((User) session.getAttribute("user")).getEmail() != null)) return HOME;
 	
 		//Attributs
 		model.addAttribute("userForm", new UserForm());
@@ -129,9 +130,9 @@ public class WelcomeController {
 	 * Méthode de la page d'inscription POST
 	 */
 	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public String doRegister(@ModelAttribute("userForm") @Valid final UserForm userForm, final BindingResult bindingResult, final Model model){
+	public String doRegister(@ModelAttribute("userForm") @Valid final UserForm userForm, final BindingResult bindingResult, final Model model, HttpSession session){
 		//Si déjà connecté
-		if(this.userService.isConnected()) return HOME;
+		if((session.getAttribute("user") != null && ((User) session.getAttribute("user")).getEmail() != null)) return HOME;
 		
 		//Initialisation
 		String result = "welcome";
@@ -176,7 +177,8 @@ public class WelcomeController {
 			this.userService.addUser(user);
 			
 			//Connexion
-			this.userService.setUser(user);
+			session.setAttribute("user", user);
+			this.userService.getUsers().put(user, System.currentTimeMillis());
 			
 			//Redirection
 			result = HOME;
@@ -193,10 +195,12 @@ public class WelcomeController {
 	/**
 	 * Méthode gérant la déconnexion
 	 */
-	@RequestMapping(value="/logout", method = RequestMethod.POST)
-	public String doLogout(final Model model){
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String doLogout(final Model model, HttpSession session){
 		//Déconnexion
-		this.userService.setUser(null);
+		this.userService.getUsers().remove((User) session.getAttribute("user"));
+		session.setAttribute("user", null);
+		
 		
 		//Redirection
 		return "redirect:/signin";

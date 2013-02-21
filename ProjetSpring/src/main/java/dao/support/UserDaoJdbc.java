@@ -1,7 +1,5 @@
 package dao.support;
 
-import java.util.List;
-
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -18,8 +16,8 @@ public class UserDaoJdbc implements UserDao{
 	
 	/* Requêtes */
 	
-	private static final String GET_USER  = "SELECT uuid, name, mail FROM user where uuid = ?";
-	private static final String GET_USER_MAIL  = "SELECT uuid, name, mail FROM user where mail = ?";
+	/** Requête de récupération d'un utilisateur */
+	private static final String GET_USER  = "SELECT * FROM `User` where `idUser` = ? LIMIT 1";
 	
 	/** Requête permettant de connecter un utilisateur */
 	private static final String CONNECT = "SELECT * FROM `User` WHERE `email` = ? AND `password` = ? LIMIT 1";
@@ -101,42 +99,18 @@ public class UserDaoJdbc implements UserDao{
 		User user = null;
 		
 		try{
-			user = this.jdbcTemplate.queryForObject(CONNECT, new Object[]{email, password}, new UserMapper());
+			user = this.jdbcTemplate.queryForObject(CONNECT, new Object[]{email, password}, this.userMapper);
 		} catch(EmptyResultDataAccessException erdae){
 			user = null;
 		}
 		
 		return user;
 	}
-	
-	
-	/* TODO */
-	
-	@Override
-	public List<User> getUsers() {
-		return null;
-//		return jdbcTemplate.query(GET_USERS, userMapper);
-	}
 
 	@Override
-	public User getUser(int id) {
-		return jdbcTemplate.queryForObject(GET_USER, userMapper, id);
+	public User getUser(long id) {
+		return this.jdbcTemplate.queryForObject(GET_USER, this.userMapper, id);
 	}
-	
-	@Override
-	public User getUserByMail(String mail) {
-		return jdbcTemplate.queryForObject(GET_USER_MAIL, userMapper, mail);
-	}
-	
-	@Override
-	public User connection(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-
-	
-
 	
 	/* Set */
 	

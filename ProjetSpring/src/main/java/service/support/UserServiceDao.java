@@ -1,10 +1,6 @@
 package service.support;
 
-import java.util.List;
-import java.util.Map;
-
 import service.UserService;
-
 import dao.UserDao;
 import domain.User;
 
@@ -13,19 +9,14 @@ import domain.User;
  * @author BALLAND Cyriel (cyr.balland@gmail.com) - BRACHET Gautier (g.brachet@gmail.com)
  * @version 1.0 (01/02/2013)
  */
-public class UserServiceDao implements UserService {
+public class UserServiceDao extends UserService {
 	
 	/* Attributs */
 	
+	private static long DELAY = 60; 	//Secondes
+	
 	/** DAO gérant les interactions avec la base de données pour les utilisateurs */
 	private UserDao userDao;
-	
-	/** Utilisateur connecté */
-	private User user;
-	
-	/** Liste contenant les utilisateurs en mémoire (connecté) */
-	@SuppressWarnings("unused")
-	private Map<Integer, User> users;
 
 	/* Méthodes */
 	
@@ -62,49 +53,46 @@ public class UserServiceDao implements UserService {
 	
 	@Override
 	public User connect(String email, String password) {
-		//Appel du DAO
-		return this.userDao.connect(email, password);
+		//Récupération de l'utilisateur
+		User user = this.userDao.connect(email, password);
+		
+		//Si connecté
+		if(user != null){
+			//Ajout au connecté
+			this.users.put(user, System.currentTimeMillis());
+		}
+		
+		//Retour du résultat
+		return user;
 	}
 	
 	@Override
-	public boolean isConnected() {
-		return (this.user != null);
-	}
-	
-	/* TODO */
+	public boolean isOnline(User user) {
+		boolean result = false;
+		Long u = this.users.get(user);
+		
+		if((u != null) && (System.currentTimeMillis() - u > DELAY)){
+			this.users.remove(user);
+		}
+		
+		for(User current : this.users.keySet()){
+			if(current.equals(user)){
+				result = true;
+				break;
+			}
+		}
 
+		return result;
+	}
 	
 	@Override
-	public List<User> getUsers() {
-		//Retour du résultat du DAO
-		return userDao.getUsers();
+	public User getUser(long id) {
+		return this.userDao.getUser(id);
 	}
 
-	@Override
-	public User getUser(String uuid) {
-		// TODO Auto-generated method stub
-		return null;
-//		return userDao.getUser(uuid);
-	}
-
-	
 	/* Set */
-	
-	@Override
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	@Override
-	public User getUser(){
-		return this.user;
-	}
 	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
-	}
-
-	public void setUsers(Map<Integer, User> users) {
-		this.users = users;
 	}
 }
